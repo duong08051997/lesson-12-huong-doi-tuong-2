@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bật tắt đèn pin</title>
+</head>
+<body>
+
+
+<img id="flashLamp" src="img/turn-off.png" height="200" width="200"/>
+<button onclick="denPin.turnOn()">On</button>
+<button onclick="denPin.turnOff()">Off</button>
+<script>
+    class Battery{
+        constructor() {
+            this.energy = 10 ;
+        }
+        setEnergy(value){
+            this.energy = value;
+        }
+        getEnergy(){
+            return this.energy;
+        }
+        decreaseEnergy(){
+            return this.energy--;
+        }
+    }
+
+    class FlashLamp{
+        constructor(status, battery) {
+            this.status = false;
+            this.battergy = Battery;
+        }
+        setBattery(battery){
+            this.battergy = battery;
+        }
+        getBatteryInfo(){
+            return this.battergy.getEnergy();
+        }
+        light(){
+            (this.status)?console.log("turnOn"):console.log("turnOff");
+           if(this.status){
+            document.getElementById("flashLamp").src ="img/turn-on.png";
+           }else {
+               document.getElementById("flashLamp").src ="img/turn-off.png";
+           }
+        }
+        turnOn(){
+            this.status = true;
+            if (this.battergy.getEnergy()>0){
+                this.battergy.decreaseEnergy();
+                this.light();
+            }else {
+                document.getElementById("flashLamp").src ="img/turn-off.png";
+                alert("het pin");
+            }
+        }
+        turnOff(){
+            this.status = false;
+            this.light();
+        }
+    }
+    let pin = new Battery();
+    let denPin = new FlashLamp();
+    denPin.setBattery(pin);
+    console.log(denPin.getBatteryInfo());
+
+</script>
+
+</body>
+</html>
